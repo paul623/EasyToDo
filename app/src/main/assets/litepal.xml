@@ -3,6 +3,6 @@
     <dbname value="EasyToDo" />
     <version value="1" />
     <list>
-        <mapping class="com.paul.easytodo.Goal"/>
+        <mapping class="com.paul.easytodo.DataSource.Goal"/>
     </list>
 </litepal>

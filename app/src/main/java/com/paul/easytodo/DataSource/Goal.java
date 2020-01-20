@@ -1,4 +1,4 @@
-package com.paul.easytodo;
+package com.paul.easytodo.DataSource;
 
 import com.yalantis.beamazingtoday.interfaces.BatModel;
 
