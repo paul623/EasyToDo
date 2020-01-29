@@ -21,6 +21,7 @@ import com.kongzue.baseframework.interfaces.DarkStatusBarTheme;
 import com.kongzue.baseframework.interfaces.Layout;
 import com.kongzue.baseframework.interfaces.NavigationBarBackgroundColor;
 import com.paul.easytodo.DataSource.Goal;
+import com.paul.easytodo.DataSource.MessageEvent;
 import com.paul.easytodo.MainActivity;
 import com.paul.easytodo.Manager.GoalHelper;
 import com.paul.easytodo.R;
@@ -37,6 +38,7 @@ import com.yalantis.beamazingtoday.ui.callback.BatCallback;
 import com.yalantis.beamazingtoday.ui.widget.BatRecyclerView;
 import com.yalantis.beamazingtoday.util.TypefaceUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
@@ -56,12 +58,14 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
     @BindView(R.id.toolbar)
     private Toolbar toolbar;
 
+    private onTodoDataChangedListener listener;
     @Override
     public void add(String string) {
         mGoals.add(0, new Goal(string));
         Goal goal=new Goal(string);
         goal.save();
         mAdapter.notify(AnimationType.ADD, 0);
+        listener.notifyDataChanged();
     }
 
     @Override
@@ -69,6 +73,7 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
         GoalHelper.deleteGaol(mGoals.get(position).getText(),mGoals.get(position).isChecked());
         mGoals.remove(position);
         mAdapter.notify(AnimationType.REMOVE, position);
+        listener.notifyDataChanged();
     }
 
     @Override
@@ -83,6 +88,7 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
             if (from == 0 || to == 0) {
                 mRecyclerView.getView().scrollToPosition(Math.min(from, to));
             }
+            listener.notifyDataChanged();
         }
     }
 
@@ -98,7 +104,14 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
 
     @Override
     public void initViews() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            Window window = me.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            window.setStatusBarColor(getResources().getColor(R.color.blue));
+        }
     }
 
     @Override
@@ -125,5 +138,14 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
                 mRecyclerView.revertAnimation();
             }
         });
+    }
+    public interface onTodoDataChangedListener{
+        public void notifyDataChanged();
+    }
+    public void setOnTodoDataChangedListener(onTodoDataChangedListener listener){
+        this.listener = listener;
+    }
+    public void refreashToDoView(){
+        initDatas();
     }
 }

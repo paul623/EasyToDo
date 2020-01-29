@@ -16,14 +16,8 @@ public class ConvertGoals {
     public static List<BatModel> getBatGoals(Context context){
         LitePal.initialize(context);
         List<Goal> goalList=LitePal.findAll(Goal.class);
-        for(Goal i:goalList){
-            Log.d("测试",i.isChecked()+"");
-        }
         List<BatModel> batModels=new ArrayList<>();
         batModels.addAll(goalList);
-        for(BatModel i:batModels){
-            Log.d("测试",i.isChecked()+"");
-        }
         return batModels;
     }
 

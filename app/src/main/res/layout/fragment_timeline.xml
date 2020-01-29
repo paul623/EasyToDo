@@ -42,7 +42,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -143,12 +146,17 @@
     </LinearLayout>
 
     <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cv_todo"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_margin="2dp"
@@ -253,6 +261,7 @@
                     android:text="距考研" />
 
                 <TextView
+                    android:id="@+id/tv_timecounter_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -273,10 +282,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ly_todolist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:padding="5dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -291,6 +304,11 @@
                 android:padding="10dp">
 
                 <ListView
+                    android:transcriptMode="alwaysScroll"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:dividerHeight="0dp"
+                    android:id="@+id/lv_todo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
@@ -301,7 +319,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:padding="5dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -440,7 +461,10 @@
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="2dp"
-        android:padding="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
@@ -453,21 +477,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/iv_forest"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:src="@drawable/app_forest"/>
                 <ImageView
+                    android:id="@+id/iv_words"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:src="@drawable/app_words"/>
                 <ImageView
+                    android:id="@+id/iv_diary"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:src="@drawable/app_diary"/>
                 <ImageView
+                    android:id="@+id/iv_love"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

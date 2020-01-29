@@ -1,5 +1,6 @@
 package com.paul.easytodo.Manager;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.paul.easytodo.DataSource.Goal;
@@ -19,5 +20,13 @@ public class GoalHelper {
             }
         }
 
+    }
+    /**
+     * 筛选出未完成的任务
+     * */
+    public static List<Goal> getNeedToDoGoals(Context context){
+        //true为1 false为0
+        LitePal.initialize(context);
+        return LitePal.where("isChecked=?","0").find(Goal.class);
     }
 }

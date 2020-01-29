@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
     public void initDatas(JumpParameter parameter) {
         List<Tab> tabs = new ArrayList<>();
         tabs.add(new Tab(this, "主页", R.drawable.icon_home));
-        tabs.add(new Tab(this, "时间线", R.drawable.icon_history));
+        tabs.add(new Tab(this, "打卡", R.drawable.icon_history));
         //tabs.add(new Tab(this, "设置", R.mipmap.img_fragment_mine));
         tabbar.setTab(tabs);
     }
@@ -65,6 +65,18 @@ public class MainActivity extends BaseActivity {
                 tabbar.setNormalFocusIndex(index);
             }
         });
+       todoFragment.setOnTodoDataChangedListener(new TodoFragment.onTodoDataChangedListener() {
+           @Override
+           public void notifyDataChanged() {
+               timeLineFragment.refreashToDoView();
+           }
+       });
+       timeLineFragment.setOnDataChangedListener(new TimeLineFragment.DataChangedListener() {
+           @Override
+           public void onToDoDataChanged() {
+               todoFragment.refreashToDoView();
+           }
+       });
     }
     @Override
     public void initFragment(FragmentChangeUtil fragmentChangeUtil) {

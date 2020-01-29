@@ -75,5 +75,17 @@ public class DateUtil {
         return week;
     }
 
+    public static String getDifferDays(){
+        String goal_date="2020-12-19";
+        Calendar a = Calendar.getInstance(),
+                b = Calendar.getInstance();
+        String[] splitdate = goal_date.split("-");
+        b.set(Integer.parseInt(splitdate[0]), Integer.parseInt(splitdate[1]) - 1, Integer.parseInt(splitdate[2]));
+        long diffDays = (b.getTimeInMillis() - a.getTimeInMillis())
+                / (1000 * 60 * 60 * 24);
+        return diffDays+"";
+
+    }
+
 
 }
