@@ -4,5 +4,6 @@
     <version value="1" />
     <list>
         <mapping class="com.paul.easytodo.DataSource.Goal"/>
+        <mapping class="com.paul.easytodo.DataSource.EveryDayCheck"/>
     </list>
 </litepal>
