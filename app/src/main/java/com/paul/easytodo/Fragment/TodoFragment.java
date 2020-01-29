@@ -24,6 +24,7 @@ import com.paul.easytodo.DataSource.Goal;
 import com.paul.easytodo.MainActivity;
 import com.paul.easytodo.Manager.GoalHelper;
 import com.paul.easytodo.R;
+import com.paul.easytodo.Utils.ConvertGoals;
 import com.paul.easytodo.Utils.DateUtil;
 import com.yalantis.beamazingtoday.interfaces.AnimationType;
 import com.yalantis.beamazingtoday.interfaces.BatModel;
@@ -75,6 +76,7 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
         if (from >= 0 && to >= 0) {
             mAnimator.setPosition(to);
             BatModel model = mGoals.get(from);
+            ConvertGoals.changeSatusGoalsByGoalMode(model,me);
             mGoals.remove(model);
             mGoals.add(to, model);
             mAdapter.notify(AnimationType.MOVE, from, to);
@@ -107,7 +109,7 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
 
         mAnimator = new BatItemAnimator();
         mRecyclerView.getView().setLayoutManager(new LinearLayoutManager(me));
-        mRecyclerView.getView().setAdapter(mAdapter = new BatAdapter(mGoals = (ArrayList)LitePal.findAll(Goal.class), this, mAnimator).setOnItemClickListener(this).setOnOutsideClickListener(this));
+        mRecyclerView.getView().setAdapter(mAdapter = new BatAdapter(mGoals = ConvertGoals.getBatGoals(me), this, mAnimator).setOnItemClickListener(this).setOnOutsideClickListener(this));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new BatCallback(this));
         itemTouchHelper.attachToRecyclerView(mRecyclerView.getView());
