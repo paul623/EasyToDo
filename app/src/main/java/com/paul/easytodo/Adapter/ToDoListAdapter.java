@@ -24,6 +24,8 @@ import com.paul.easytodo.Utils.MessageFactory;
 import java.text.MessageFormat;
 import java.util.List;
 
+import static android.view.FrameMetrics.ANIMATION_DURATION;
+
 
 public class ToDoListAdapter extends BaseAdapter {
     List<Goal> goals;
@@ -67,15 +69,64 @@ public class ToDoListAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    goals.get(position).setChecked(true);
-                    goals.get(position).save();
-                    goals.remove(position);
-                    handler.sendMessage(MessageFactory.getMessage(1));
-                    notifyDataSetChanged();
+                    deletePattern(view,position);
                 }
             }
         });
         return view;
+    }
+
+
+    private void deletePattern(final View view, final int position) {
+
+        Animation.AnimationListener al = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                goals.get(position).setChecked(true);
+                goals.get(position).save();
+                goals.remove(position);
+                handler.sendMessage(MessageFactory.getMessage(1));
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+        collapse(view, al);
+
+    }
+
+    private void collapse(final View view, Animation.AnimationListener al) {
+        final int originHeight = view.getMeasuredHeight();
+
+        Animation animation = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if (interpolatedTime == 1.0f) {
+                    view.setVisibility(View.GONE);
+                } else {
+                    view.getLayoutParams().height = originHeight - (int) (originHeight * interpolatedTime);
+                    view.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+        if (al != null) {
+            animation.setAnimationListener(al);
+        }
+        animation.setDuration(300);
+        view.startAnimation(animation);
     }
 
 }

@@ -10,6 +10,11 @@ import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -125,7 +130,8 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
         toDoListAdapter=new ToDoListAdapter(me,handler);
         initHeadView();
         initColorCardView();
-        lv_todo.setAdapter(toDoListAdapter);
+        initListView();
+
     }
 
     @Override
@@ -220,8 +226,20 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
         goalList= GoalHelper.getNeedToDoGoals(me);
         tv_todo_size.setText(""+goalList.size());
         if(goalList.size()==0){
+            TranslateAnimation hideAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 1.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+            hideAnim.setDuration(500);
+            ly_todolist.startAnimation(hideAnim);
             ly_todolist.setVisibility(View.GONE);
-        }else {
+        }else if(ly_todolist.getVisibility()==View.GONE){
+            TranslateAnimation showAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+            showAnim.setDuration(500);
+            ly_todolist.startAnimation(showAnim);
             ly_todolist.setVisibility(View.VISIBLE);
         }
     }
@@ -262,5 +280,30 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
             }
         });
 
+    }
+    public void initListView(){
+        lv_todo.setAdapter(toDoListAdapter);
+        //动画集合
+        AnimationSet animationSet = new AnimationSet(true);
+        //alpha动画
+        Animation animation = new AlphaAnimation(0.0f,1.0f);
+        animation.setDuration(1300);
+        animationSet.addAnimation(animation);
+        //位移动画 效果 从Y方向下落到自己的位置
+        //RELATIVE_TO_SELF 相对自身
+        //-1.0f 起始Y坐标为自身的高度
+        //TranslateAnimation(int fromXType, float fromXValue,
+        //                   int toXType,   float toXValue,
+        //                   int fromYType, float fromYValue,
+        //                   int toYType,   float toYValue)
+        animation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,0.0f,
+                Animation.RELATIVE_TO_SELF,-1.0f,Animation.RELATIVE_TO_SELF,0.0f);
+        animation.setDuration(1300);
+        animationSet.addAnimation(animation);
+        //设置子视图动画及持续时间
+        LayoutAnimationController controller = new LayoutAnimationController(animationSet,0.5f);
+        //绑定到listview
+        lv_todo.setLayoutAnimation(controller);
     }
 }
