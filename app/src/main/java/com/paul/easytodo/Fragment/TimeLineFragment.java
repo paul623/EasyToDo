@@ -40,6 +40,7 @@ import com.paul.easytodo.DataSource.Goal;
 import com.paul.easytodo.MainActivity;
 import com.paul.easytodo.Manager.EveryDayCheckManager;
 import com.paul.easytodo.Manager.GoalHelper;
+import com.paul.easytodo.Manager.SettingManager;
 import com.paul.easytodo.R;
 import com.paul.easytodo.Utils.DateUtil;
 import com.paul.easytodo.Utils.OpenAppHelper;
@@ -89,11 +90,14 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
     private ImageView iv_words;
     @BindView(R.id.iv_love)
     private ImageView iv_love;
+    @BindView(R.id.ly_timeline)
+    private LinearLayout ly_timeline;
 
     private EveryDayCheck everyDayCheck;
     private List<Goal> goalList;
     private ToDoListAdapter toDoListAdapter;
     private DataChangedListener listener;
+    private SettingManager settingManager;
     private Handler handler=new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -124,10 +128,12 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
     @Override
     public void initDatas() {
         LitePal.initialize(me);
+        settingManager=new SettingManager(me);
         goalList= GoalHelper.getNeedToDoGoals(me);
         everyDayCheck= EveryDayCheckManager.getEveryDayCheck(me);
         tv_comeon_words.setText(WordsUtil.getWordsByRandom(me));
         toDoListAdapter=new ToDoListAdapter(me,handler);
+        ly_timeline.setBackground(settingManager.getHomepage_bg_img());
         initHeadView();
         initColorCardView();
         initListView();

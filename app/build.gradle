@@ -7,8 +7,8 @@ android {
         applicationId "com.paul.easytodo"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 3
-        versionName "0.0.1"
+        versionCode 4
+        versionName "0.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -44,4 +44,7 @@ dependencies {
     implementation 'com.kongzue.dialog_v3x:dialog:3.1.8'
     //EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //SupertextView
+    implementation 'com.github.lygttpod:SuperTextView:2.2.3'
+    implementation 'com.kongzue.stacklabel:stacklabelview:1.1.9'
 }

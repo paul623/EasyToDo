@@ -17,6 +17,7 @@ import com.kongzue.baseframework.util.JumpParameter;
 import com.kongzue.tabbar.Tab;
 import com.kongzue.tabbar.TabBarView;
 import com.kongzue.tabbar.interfaces.OnTabChangeListener;
+import com.paul.easytodo.Fragment.SettingFragment;
 import com.paul.easytodo.Fragment.TimeLineFragment;
 import com.paul.easytodo.Fragment.TodoFragment;
 
@@ -34,10 +35,12 @@ public class MainActivity extends BaseActivity {
 
     private TodoFragment todoFragment=new TodoFragment();
     private TimeLineFragment timeLineFragment=new TimeLineFragment();
+    private SettingFragment settingFragment=new SettingFragment();
 
     @Override
     public void initViews() {
-
+        String [] premissions={"android.permission.WRITE_EXTERNAL_STORAGE","android.permission.READ_EXTERNAL_STORAGE"};
+        requestPermissions(premissions,0);
     }
 
 
@@ -47,7 +50,7 @@ public class MainActivity extends BaseActivity {
         List<Tab> tabs = new ArrayList<>();
         tabs.add(new Tab(this, "主页", R.drawable.icon_home));
         tabs.add(new Tab(this, "打卡", R.drawable.icon_history));
-        //tabs.add(new Tab(this, "设置", R.mipmap.img_fragment_mine));
+        tabs.add(new Tab(this, "设置", R.drawable.ic_setting));
         tabbar.setTab(tabs);
     }
 
@@ -82,6 +85,7 @@ public class MainActivity extends BaseActivity {
     public void initFragment(FragmentChangeUtil fragmentChangeUtil) {
         fragmentChangeUtil.addFragment(timeLineFragment);
         fragmentChangeUtil.addFragment(todoFragment);
+        fragmentChangeUtil.addFragment(settingFragment);
         changeFragment(0);
     }
 }
