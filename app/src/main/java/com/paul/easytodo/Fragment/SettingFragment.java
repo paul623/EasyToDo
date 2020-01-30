@@ -8,14 +8,19 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.allen.library.SuperTextView;
@@ -29,11 +34,16 @@ import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.FullScreenDialog;
 import com.kongzue.dialog.v3.MessageDialog;
+import com.paul.easytodo.DataSource.FinalWords;
 import com.paul.easytodo.MainActivity;
 import com.paul.easytodo.Manager.SettingManager;
 import com.paul.easytodo.R;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
+
+
 
 import es.dmoral.toasty.Toasty;
 
@@ -50,6 +60,14 @@ public class SettingFragment extends BaseFragment<MainActivity> {
 
 
     private SettingManager settingManager;
+    EditText editText_username;
+    EditText editText_password;
+    private Handler handler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            return false;
+        }
+    });
     @Override
     public void initViews() {
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
@@ -77,23 +95,8 @@ public class SettingFragment extends BaseFragment<MainActivity> {
                 FullScreenDialog.show(me, R.layout.dialog_webview, new FullScreenDialog.OnBindView() {
                     @Override
                     public void onBind(final FullScreenDialog dialog, View rootView) {
-                        WebView webView;
-                        webView = rootView.findViewById(R.id.webView);
-                        webView.setWebViewClient(new WebViewClient());
-                        webView.getSettings().setJavaScriptEnabled(true);
-                        //设置自适应屏幕，两者合用
-                        webView.getSettings().setUseWideViewPort(true); //将图片调整到适合webview的大小
-                        webView.getSettings().setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
-                        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
-                        //缩放操作
-                        webView.getSettings().setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-                        webView.getSettings().setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
-                        webView.getSettings().setDisplayZoomControls(false); //隐藏原生的缩放控件
-                        webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-                        webView.getSettings().setDomStorageEnabled(true);
-                        webView.loadUrl("https://www.yuque.com/docs/share/eecca65c-442e-4567-9be5-901e41a04bce?#");
-
+                        TextView textView=rootView.findViewById(R.id.tv_security);
+                        textView.setText(FinalWords.security_words);
                     }
                 }).setOkButton("关闭", new OnDialogButtonClickListener() {
                     @Override
@@ -160,5 +163,25 @@ public class SettingFragment extends BaseFragment<MainActivity> {
             }
         }
 
+    }
+    public void showInputDialog() {
+
+        //对于未实例化的布局：
+        MessageDialog.show(me, "登录", "目前仅支持WebDav", "知道了")
+                .setCustomView(R.layout.dialog_webdav_account, new MessageDialog.OnBindView() {
+                    @Override
+                    public void onBind(MessageDialog dialog, View v) {
+                        //绑定布局事件，可使用v.findViewById(...)来获取子组件
+                        editText_username=v.findViewById(R.id.et_name);
+                        editText_password=v.findViewById(R.id.et_password);
+                    }
+                })
+        .setOkButton("好了", new OnDialogButtonClickListener() {
+            @Override
+            public boolean onClick(BaseDialog baseDialog, View v) {
+                Toasty.success(me,editText_password.getText().toString(),Toasty.LENGTH_LONG).show();
+                return false;
+            }
+        });
     }
 }

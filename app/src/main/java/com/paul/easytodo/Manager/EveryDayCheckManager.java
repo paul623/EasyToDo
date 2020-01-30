@@ -23,4 +23,11 @@ public class EveryDayCheckManager {
             return new EveryDayCheck();
         }
     }
+    /**
+     * 获取所有
+     * */
+    public static List<EveryDayCheck> getAll(Context context){
+        LitePal.initialize(context);
+        return LitePal.findAll(EveryDayCheck.class);
+    }
 }

@@ -29,4 +29,8 @@ public class GoalHelper {
         LitePal.initialize(context);
         return LitePal.where("isChecked=?","0").find(Goal.class);
     }
+    public static List<Goal> getAll(Context context){
+        LitePal.initialize(context);
+        return LitePal.findAll(Goal.class);
+    }
 }

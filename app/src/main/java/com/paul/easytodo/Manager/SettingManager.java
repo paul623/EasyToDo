@@ -27,6 +27,12 @@ public class SettingManager {
     //背景设置
     String homepage_bg_imgdir;
     String key_homepage_bg_imgdir="key_homepage_bg_imgdir";
+    //WebDav账户
+    String username;
+    String key_username="key_username";
+    String password;
+    String key_password="key_password";
+
 
     public SettingManager(Context context){
         this.context=context;
@@ -34,6 +40,8 @@ public class SettingManager {
         editor=sp.edit();
         //开始初始化各种变量
         homepage_bg_imgdir=sp.getString(key_homepage_bg_imgdir,"");
+        username=sp.getString(key_username,"");
+        password=sp.getString(key_password,"");
     }
 
     public Drawable getHomepage_bg_img() {
@@ -41,7 +49,6 @@ public class SettingManager {
         if(homepage_bg_imgdir==null||homepage_bg_imgdir.equals("")){
             drawable = ContextCompat.getDrawable(context, R.drawable.bg_default);
         }else {
-            Log.d("测试",homepage_bg_imgdir);
             Bitmap bitmap = ImageUtil.getBitmapByPath(context,homepage_bg_imgdir);
             drawable = new BitmapDrawable(context.getResources(), bitmap);
         }
@@ -52,5 +59,34 @@ public class SettingManager {
         this.homepage_bg_imgdir = homepage_bg_imgdir;
         editor.putString(key_homepage_bg_imgdir,homepage_bg_imgdir);
         editor.apply();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+        editor.putString(key_username,username);
+        editor.apply();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        editor.putString(key_password,password);
+        editor.apply();
+    }
+    public boolean canLogin(){
+        if(username==null||username.equals("")){
+            return false;
+        }
+        if(password==null||password.equals("")){
+            return false;
+        }
+        return true;
     }
 }
