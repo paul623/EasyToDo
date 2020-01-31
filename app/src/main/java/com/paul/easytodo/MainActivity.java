@@ -1,6 +1,7 @@
 package com.paul.easytodo;
 
 
+import android.graphics.Bitmap;
 import android.view.View;
 
 import com.kongzue.baseframework.BaseActivity;
@@ -78,6 +79,24 @@ public class MainActivity extends BaseActivity {
            @Override
            public void onToDoDataChanged() {
                todoFragment.refreashToDoView();
+
+           }
+       });
+       settingFragment.setOnRefreashImageListener(new SettingFragment.refreashImageListener() {
+           @Override
+           public void refreashHeadIcon(Bitmap bitmap) {
+               timeLineFragment.refreashHeadIcon(bitmap);
+           }
+
+           @Override
+           public void refreashBackground(Bitmap bitmap) {
+                timeLineFragment.refreashBack(bitmap);
+           }
+
+           @Override
+           public void refreashAllData() {
+               todoFragment.refreashToDoView();
+               timeLineFragment.refreashToDoView();
            }
        });
     }

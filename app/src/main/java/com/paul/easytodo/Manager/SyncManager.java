@@ -39,12 +39,14 @@ public class SyncManager {
     String password;
     Sardine sardine;
     Context context;
+    Handler handler;
     SettingManager settingManager;
     /**
      * 构造函数
      * @param context 上下文
      * */
-    public SyncManager(Context context){
+    public SyncManager(Context context,Handler handler){
+        this.handler=handler;
         this.context=context;
         settingManager=new SettingManager(context);
         serverHostUrl="https://dav.jianguoyun.com/dav/";
@@ -54,9 +56,9 @@ public class SyncManager {
     }
     /**
      * 更新Goal
-     * @param handler 1成功 -1失败
+     * handler 1成功 -1失败
      * */
-    private void updateGoalFiles(List<Goal> goals, Handler handler){
+    private void updateGoalFiles(List<Goal> goals){
         sardine.setCredentials(userName,password);
         Gson gson=new Gson();
         String jsons=gson.toJson(goals);
@@ -79,9 +81,9 @@ public class SyncManager {
     }
     /**
      * 更新EveryDayCheck
-     * @param handler 1成功 -1失败
+     *handler 1成功 -1失败
      * */
-    private void updateEveryDayCheckFiles(List<EveryDayCheck> everyDayChecks, Handler handler){
+    private void updateEveryDayCheckFiles(List<EveryDayCheck> everyDayChecks){
         sardine.setCredentials(userName,password);
         Gson gson=new Gson();
         String jsons=gson.toJson(everyDayChecks);
@@ -104,71 +106,60 @@ public class SyncManager {
     }
     /**
      * 更新EveryDayCheck
-     * @param handler 回调
+     * handler 回调
      * */
-    public void upDateEveryDayCheck(final Handler handler){
+    private void upDateEveryDayCheck(){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    updateEveryDayCheckFiles(EveryDayCheckManager.getAll(context),handler);
+                    updateEveryDayCheckFiles(EveryDayCheckManager.getAll(context));
                 }
             }).start();
     }
     /**
      * 更新Goal
-     * @param handler 回调
+     * handler 回调
      * */
-    public void upDateGoals(final Handler handler){
+    private void upDateGoals(){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                updateGoalFiles(GoalHelper.getAll(context),handler);
+                updateGoalFiles(GoalHelper.getAll(context));
             }
         }).start();
     }
     /**
      * 获取云端存储的Goal
-     * @param handler 2成功 -2失败
+     *handler 2成功 -2失败
      * */
-    public void getCloudGoalFiles(final Handler handler){
-        if(userName.equals("")||password.equals("")){
-            Toasty.info(context,"请设置账号",Toasty.LENGTH_SHORT).show();
-            Intent intent=new Intent(context, SettingFragment.class);
-            context.startActivity(intent);
-        }else {
-            Toasty.info(context,"恢复中",Toasty.LENGTH_SHORT).show();
-            new Thread(new Runnable() {
+    private void getCloudGoalFiles(){
+        Toasty.info(context,"恢复中",Toasty.LENGTH_SHORT).show();
+        new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    getGoalFiles(handler);
+                    getGoalFiles();
                 }
             }).start();
-        }
     }
     /**
      * 获取云端存储的EveryDayCheck
-     * @param handler 2成功 -2失败
+     * handler 2成功 -2失败
      * */
-    public void getCloudEveryDayCheckFiles(final Handler handler){
-        if(userName.equals("")||password.equals("")){
-            Toasty.info(context,"请设置账号",Toasty.LENGTH_SHORT).show();
-            Intent intent=new Intent(context, SettingFragment.class);
-            context.startActivity(intent);
-        }else {
-            Toasty.info(context,"恢复中",Toasty.LENGTH_SHORT).show();
-            new Thread(new Runnable() {
+    private void getCloudEveryDayCheckFiles(){
+        Toasty.info(context,"恢复中",Toasty.LENGTH_SHORT).show();
+        new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    getGoalFiles(handler);
+                    getGoalFiles();
                 }
             }).start();
-        }
+
     }
     /**
      * 获取云端存储的Goal
      * 特别注意，Gson自动生成的对象无法直接调用save保存
      * */
-    private void getGoalFiles(Handler handler){
+    private void getGoalFiles(){
         sardine.setCredentials(userName,password);
         try {
             InputStream inputStream=sardine.get(serverHostUrl+"EasyToDo/backupGoals.txt");
@@ -184,6 +175,8 @@ public class SyncManager {
             List<Goal> list=gson.fromJson(str,new TypeToken<List<Goal>>() {}.getType());
             LitePal.initialize(context);
             LitePal.deleteAll(Goal.class);
+            Log.d("测试","总共获取Goal"+list.size()+
+                    "个");
             for(Goal goal:list){
                 Goal item=new Goal();
                 item.setChecked(goal.isChecked());
@@ -207,7 +200,7 @@ public class SyncManager {
      * 获取云端存储的EveryDayCheck
      * 特别注意，Gson自动生成的对象无法直接调用save保存
      * */
-    private void getEveryDayCheckFiles(Handler handler){
+    private void getEveryDayCheckFiles(){
         sardine.setCredentials(userName,password);
         try {
             InputStream inputStream=sardine.get(serverHostUrl+"EasyToDo/backupEveryDayCheck.txt");
@@ -243,18 +236,24 @@ public class SyncManager {
 
     }
 
-
-    public void updateAll(Handler handler){
+    /**
+     * 更新
+     * */
+    public void updateAll(){
         if(settingManager.canLogin()) {
-            upDateEveryDayCheck(handler);
-            upDateGoals(handler);
+            upDateEveryDayCheck();
+            upDateGoals();
         }
 
     }
-    public void getAll(Handler handler){
+    /**
+     * 下拉
+     * */
+    public void getAll(){
         if(settingManager.canLogin()) {
-            getEveryDayCheckFiles(handler);
-            getGoalFiles(handler);
+            Log.d("测试","准备恢复");
+            getCloudGoalFiles();
+            getCloudEveryDayCheckFiles();
         }
 
     }

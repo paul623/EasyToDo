@@ -27,7 +27,7 @@ public class ConvertGoals {
         for(Goal i:goalList){
             if(i.getName().equals(model.getText())&&i.isChecked()==model.isChecked()){
                 i.setChecked(!model.isChecked());
-                i.setFinshDate(DateUtil.getCurDate());
+                i.setFinshDate(DateUtil.getCurTimeAndDate());
                 i.save();
                 return;
             }

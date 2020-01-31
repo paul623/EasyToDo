@@ -56,6 +56,36 @@
         app:sUseRipple="false"
         android:background="@color/white" />
     <com.allen.library.SuperTextView
+        android:id="@+id/stv_update"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:sLeftViewMarginLeft="15dp"
+        app:sLeftTextString="WebDav同步"
+        app:sLeftTextSize="16sp"
+        android:paddingLeft="10dp"
+        app:sBottomDividerLineMarginLeft="13dp"
+        app:sDividerLineColor="#CFCFCF"
+        app:sRightIconRes="@drawable/ic_right"
+        app:sRightIconHeight="20dp"
+        app:sRightIconWidth="20dp"
+        app:sUseRipple="false"
+        android:background="@color/white" />
+    <com.allen.library.SuperTextView
+        android:id="@+id/stv_download"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:sLeftViewMarginLeft="15dp"
+        app:sLeftTextString="WebDav恢复"
+        app:sLeftTextSize="16sp"
+        android:paddingLeft="10dp"
+        app:sBottomDividerLineMarginLeft="13dp"
+        app:sDividerLineColor="#CFCFCF"
+        app:sRightIconRes="@drawable/ic_right"
+        app:sRightIconHeight="20dp"
+        app:sRightIconWidth="20dp"
+        app:sUseRipple="false"
+        android:background="@color/white" />
+    <com.allen.library.SuperTextView
         android:id="@+id/stv_4"
         android:layout_width="match_parent"
         android:layout_height="60dp"

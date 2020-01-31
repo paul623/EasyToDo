@@ -1,7 +1,10 @@
 package com.paul.easytodo.Fragment;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -52,6 +55,7 @@ import org.litepal.LitePal;
 import java.util.List;
 
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
 @Layout(R.layout.fragment_timeline)
@@ -92,6 +96,8 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
     private ImageView iv_love;
     @BindView(R.id.ly_timeline)
     private LinearLayout ly_timeline;
+    @BindView(R.id.profile_image)
+    private CircleImageView profile_image;
 
     private EveryDayCheck everyDayCheck;
     private List<Goal> goalList;
@@ -134,6 +140,7 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
         tv_comeon_words.setText(WordsUtil.getWordsByRandom(me));
         toDoListAdapter=new ToDoListAdapter(me,handler);
         ly_timeline.setBackground(settingManager.getHomepage_bg_img());
+        profile_image.setImageBitmap(settingManager.getHomepage_headicon_img());
         initHeadView();
         initColorCardView();
         initListView();
@@ -311,5 +318,11 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
         LayoutAnimationController controller = new LayoutAnimationController(animationSet,0.5f);
         //绑定到listview
         lv_todo.setLayoutAnimation(controller);
+    }
+    public void refreashHeadIcon(Bitmap bitmap){
+        profile_image.setImageBitmap(bitmap);
+    }
+    public void refreashBack(Bitmap bitmap){
+        ly_timeline.setBackground(new BitmapDrawable(me.getResources(), bitmap));
     }
 }

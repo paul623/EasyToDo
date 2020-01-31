@@ -51,4 +51,6 @@ dependencies {
     implementation 'com.thegrizzlylabs.sardine-android:sardine-android:0.5'
     //GSON
     implementation 'com.google.code.gson:gson:2.8.6'
+    //ucrop1.0
+    implementation 'com.github.yalantis:ucrop:2.2.4'
 }

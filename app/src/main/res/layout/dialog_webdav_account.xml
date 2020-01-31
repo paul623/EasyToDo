@@ -48,7 +48,7 @@
     </LinearLayout>
     <TextView
         android:padding="5dp"
-        android:text="说明：本应用会自动在dav目录下创建一个pickTime文件夹，请勿删除文件内容造成数据丢失！"
+        android:text="说明：本应用会自动在dav目录下创建一个EasyToDo文件夹，请勿删除文件内容造成数据丢失！"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <LinearLayout

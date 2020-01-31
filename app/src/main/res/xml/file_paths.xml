@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <files-path path="Android/data/com.paul.easytodo/files/Pictures/" name="Avatar" />
+    <external-path path="Android/data/com.paul.easytodo/files/Pictures/" name="Avatar" />
+    <external-files-path path="files/Pictures/Avatar" name="images"/>
+    <root-path name="name" path="" />
+</paths>

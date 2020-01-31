@@ -49,7 +49,7 @@ public class ImageUtil {
      * 适配安卓Q
      * 拿到图片地址后转换
      * */
-    private static Bitmap getBitmapFromUri(Context context, Uri uri) {
+    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
         try {
             ParcelFileDescriptor parcelFileDescriptor =
                     context.getContentResolver().openFileDescriptor(uri, "r");
@@ -66,7 +66,7 @@ public class ImageUtil {
      * 适配安卓Q
      * 由地址获得URI
      * */
-    private static Uri getImageContentUri(Context context, String path) {
+    public static Uri getImageContentUri(Context context, String path) {
         Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 new String[] { MediaStore.Images.Media._ID }, MediaStore.Images.Media.DATA + "=? ",
                 new String[] { path }, null);
@@ -499,6 +499,20 @@ public class ImageUtil {
     }
     public static Bitmap getBitmapFromSrc(String src){
         return scaleImage(BitmapFactory.decodeFile(src),224,224);
+    }
+    /**
+     * 裁剪
+     *
+     * @param bitmap 原图
+     * @return 裁剪后的图像
+     */
+    public static Bitmap cropBitmap(Bitmap bitmap) {
+        int w = bitmap.getWidth(); // 得到图片的宽，高
+        int h = bitmap.getHeight();
+        int cropWidth = w >= h ? h : w;// 裁切后所取的正方形区域边长
+        cropWidth /= 2;
+        int cropHeight = (int) (cropWidth / 1.2);
+        return Bitmap.createBitmap(bitmap, w / 3, 0, cropWidth, cropHeight, null, false);
     }
 
 }

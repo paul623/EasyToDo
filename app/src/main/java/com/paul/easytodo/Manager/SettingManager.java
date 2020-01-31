@@ -27,6 +27,9 @@ public class SettingManager {
     //背景设置
     String homepage_bg_imgdir;
     String key_homepage_bg_imgdir="key_homepage_bg_imgdir";
+    //头像设置
+    String homepage_headicon_imgdir;
+    String key_homepage_headicon_imgdir="key_homepage_headicon_imgdir";
     //WebDav账户
     String username;
     String key_username="key_username";
@@ -42,6 +45,7 @@ public class SettingManager {
         homepage_bg_imgdir=sp.getString(key_homepage_bg_imgdir,"");
         username=sp.getString(key_username,"");
         password=sp.getString(key_password,"");
+        homepage_headicon_imgdir=sp.getString(key_homepage_headicon_imgdir,"");
     }
 
     public Drawable getHomepage_bg_img() {
@@ -88,5 +92,20 @@ public class SettingManager {
             return false;
         }
         return true;
+    }
+    public Bitmap getHomepage_headicon_img(){
+        if(homepage_headicon_imgdir==null||homepage_headicon_imgdir.equals("")){
+            return BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_head);
+        }
+        return BitmapFactory.decodeFile(homepage_headicon_imgdir);
+    }
+    public String getHomepage_headicon_imgdir() {
+        return homepage_headicon_imgdir;
+    }
+
+    public void setHomepage_headicon_imgdir(String homepage_headicon_imgdir) {
+        this.homepage_headicon_imgdir = homepage_headicon_imgdir;
+        editor.putString(key_homepage_headicon_imgdir,homepage_headicon_imgdir);
+        editor.apply();
     }
 }

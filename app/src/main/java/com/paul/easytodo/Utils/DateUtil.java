@@ -87,5 +87,9 @@ public class DateUtil {
 
     }
 
-
+    public static String getCurTimeAndDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date();
+        return df.format(date);
+    }
 }

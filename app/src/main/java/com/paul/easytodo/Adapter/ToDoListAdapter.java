@@ -19,6 +19,7 @@ import com.paul.easytodo.Fragment.TodoFragment;
 import com.paul.easytodo.Manager.GoalHelper;
 import com.paul.easytodo.R;
 import com.paul.easytodo.Utils.ColorPool;
+import com.paul.easytodo.Utils.DateUtil;
 import com.paul.easytodo.Utils.MessageFactory;
 
 import java.text.MessageFormat;
@@ -88,6 +89,7 @@ public class ToDoListAdapter extends BaseAdapter {
             @Override
             public void onAnimationEnd(Animation animation) {
                 goals.get(position).setChecked(true);
+                goals.get(position).setFinshDate(DateUtil.getCurTimeAndDate());
                 goals.get(position).save();
                 goals.remove(position);
                 handler.sendMessage(MessageFactory.getMessage(1));
