@@ -53,8 +53,7 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
     private BatItemAnimator mAnimator;
     @BindView(R.id.bat_recycler_view)
     private BatRecyclerView mRecyclerView;
-    @BindView(R.id.text_title)
-    private TextView tv_title;
+
     @BindView(R.id.toolbar)
     private Toolbar toolbar;
 
@@ -117,8 +116,6 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
     @Override
     public void initDatas() {
         LitePal.initialize(me);
-        tv_title.setTypeface(TypefaceUtil.getAvenirTypeface(me));
-        tv_title.setText(DateUtil.getCurDate());
 
         mAnimator = new BatItemAnimator();
         mRecyclerView.getView().setLayoutManager(new LinearLayoutManager(me));

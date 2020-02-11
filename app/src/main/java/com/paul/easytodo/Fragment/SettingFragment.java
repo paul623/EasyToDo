@@ -12,12 +12,15 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -70,6 +73,8 @@ public class SettingFragment extends BaseFragment<MainActivity> {
     private SuperTextView stv_2;
     @BindView(R.id.stv_3)
     private SuperTextView stv_3;
+    @BindView(R.id.stv_6)
+    private SuperTextView stv_6;
     @BindView(R.id.stv_7)
     private SuperTextView stv_7;
     @BindView(R.id.stv_8)
@@ -113,6 +118,14 @@ public class SettingFragment extends BaseFragment<MainActivity> {
     @Override
     public void initViews() {
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            Window window = me.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            window.setStatusBarColor(getResources().getColor(R.color.blue));
+        }
     }
 
     @Override
@@ -143,6 +156,12 @@ public class SettingFragment extends BaseFragment<MainActivity> {
             @Override
             public void onClick(View v) {
                 showInputDialog();
+            }
+        });
+        stv_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEveryDayWordsEditDialog();
             }
         });
         stv_7.setOnClickListener(new View.OnClickListener() {
@@ -312,5 +331,19 @@ public class SettingFragment extends BaseFragment<MainActivity> {
     }
     public void setOnRefreashImageListener(refreashImageListener listener){
         this.listener=listener;
+    }
+
+    public void showEveryDayWordsEditDialog(){
+        FullScreenDialog.show(me, R.layout.dialog_everydaywords_view, new FullScreenDialog.OnBindView() {
+            @Override
+            public void onBind(final FullScreenDialog dialog, View rootView) {
+
+            }
+        }).setOkButton("关闭", new OnDialogButtonClickListener() {
+            @Override
+            public boolean onClick(BaseDialog baseDialog, View v) {
+                return false;
+            }
+        }).setTitle("编辑");
     }
 }

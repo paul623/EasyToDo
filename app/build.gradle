@@ -53,4 +53,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     //ucrop1.0
     implementation 'com.github.yalantis:ucrop:2.2.4'
+    //Layout选中效果
+    implementation 'com.github.jaouan:compoundlayout:1.0.1'
 }
