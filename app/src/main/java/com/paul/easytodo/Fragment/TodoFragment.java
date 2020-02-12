@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -103,14 +104,15 @@ public class TodoFragment extends BaseFragment<MainActivity> implements BatListe
 
     @Override
     public void initViews() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
             Window window = me.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             window.setStatusBarColor(getResources().getColor(R.color.blue));
-        }
+        }*/
+
     }
 
     @Override

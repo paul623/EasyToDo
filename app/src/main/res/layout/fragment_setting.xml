@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
         app:title="设置"
+        android:fitsSystemWindows="true"
         app:titleTextColor="@color/white"
         android:background="@color/blue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="90dp"/>
     <com.allen.library.SuperTextView
         android:id="@+id/stv_1"
         android:layout_width="match_parent"

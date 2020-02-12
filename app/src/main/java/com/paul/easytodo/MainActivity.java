@@ -2,6 +2,7 @@ package com.paul.easytodo;
 
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,7 +47,15 @@ public class MainActivity extends BaseActivity {
     public void initViews() {
         String [] premissions={"android.permission.WRITE_EXTERNAL_STORAGE","android.permission.READ_EXTERNAL_STORAGE"};
         requestPermissions(premissions,0);
-
+        if (Build.VERSION.SDK_INT >= 21) {
+            // 好的当前活动的DecorView,在改变UI显示
+            View decorView = me.getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            // 使其状态栏呈现透明色
+            me.getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
     }
 
 

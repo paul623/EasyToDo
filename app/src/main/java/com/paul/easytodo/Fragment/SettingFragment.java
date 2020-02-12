@@ -36,6 +36,7 @@ import androidx.core.content.FileProvider;
 import com.allen.library.SuperTextView;
 import com.kongzue.baseframework.BaseFragment;
 import com.kongzue.baseframework.interfaces.BindView;
+import com.kongzue.baseframework.interfaces.DarkStatusBarTheme;
 import com.kongzue.baseframework.interfaces.Layout;
 import com.kongzue.baseframework.util.JumpParameter;
 import com.kongzue.baseframework.util.OnJumpResponseListener;
@@ -65,6 +66,7 @@ import java.util.Date;
 
 import es.dmoral.toasty.Toasty;
 
+@DarkStatusBarTheme(true)
 @Layout(R.layout.fragment_setting)
 public class SettingFragment extends BaseFragment<MainActivity> {
     @BindView(R.id.stv_1)
@@ -118,14 +120,15 @@ public class SettingFragment extends BaseFragment<MainActivity> {
     @Override
     public void initViews() {
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
             Window window = me.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             window.setStatusBarColor(getResources().getColor(R.color.blue));
-        }
+        }*/
+
     }
 
     @Override

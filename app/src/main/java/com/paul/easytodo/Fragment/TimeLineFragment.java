@@ -121,14 +121,15 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
     @Override
     public void initViews() {
         DialogSettings.style= DialogSettings.STYLE.STYLE_IOS;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
             Window window = me.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             window.setStatusBarColor(getResources().getColor(R.color.blue));
-        }
+        }*/
+
     }
 
     @Override
@@ -324,5 +325,19 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
     }
     public void refreashBack(Bitmap bitmap){
         ly_timeline.setBackground(new BitmapDrawable(me.getResources(), bitmap));
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        View view=getView();
+        if (view != null) {
+            if (hidden) {
+                view.setFitsSystemWindows(false);
+            } else {
+                view.setFitsSystemWindows(true);
+            }
+            view.requestApplyInsets();
+        }
+        super.onHiddenChanged(hidden);
     }
 }
