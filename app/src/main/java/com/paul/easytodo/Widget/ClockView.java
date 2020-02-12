@@ -1,8 +1,5 @@
 package com.paul.easytodo.Widget;
 
-/**
- * Created by Lulin on 2018/6/30.
- */
 
 import android.animation.ValueAnimator;
 import android.content.Context;

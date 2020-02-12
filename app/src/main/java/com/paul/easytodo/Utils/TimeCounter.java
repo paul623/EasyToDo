@@ -2,9 +2,7 @@ package com.paul.easytodo.Utils;
 
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +15,11 @@ public class TimeCounter {
 
     public TimeCounter(final Handler handler){
         this.handler=handler;
+
+
+    }
+
+    public void start(){
         timer=new Timer();
         //声明定时任务
         timerTask = new TimerTask() {
@@ -27,10 +30,6 @@ public class TimeCounter {
                 handler.sendMessage(msg);
             }
         };
-
-    }
-
-    public void start(){
         //启动定时器
         timer.schedule(timerTask, 1000, 1000);
     }
