@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.provider.UserDictionary;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -46,6 +48,7 @@ import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.FullScreenDialog;
 import com.kongzue.dialog.v3.MessageDialog;
 import com.kongzue.dialog.v3.TipDialog;
+import com.paul.easytodo.Adapter.WordsAdapter;
 import com.paul.easytodo.DataSource.FinalWords;
 import com.paul.easytodo.MainActivity;
 import com.paul.easytodo.Manager.SettingManager;
@@ -53,15 +56,12 @@ import com.paul.easytodo.Manager.SyncManager;
 import com.paul.easytodo.R;
 import com.paul.easytodo.Utils.DateUtil;
 import com.paul.easytodo.Utils.ImageUtil;
-import com.yalantis.ucrop.UCrop;
-import com.yalantis.ucrop.UCropActivity;
 
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
+
 
 
 import es.dmoral.toasty.Toasty;
@@ -75,8 +75,8 @@ public class SettingFragment extends BaseFragment<MainActivity> {
     private SuperTextView stv_2;
     @BindView(R.id.stv_3)
     private SuperTextView stv_3;
-    @BindView(R.id.stv_6)
-    private SuperTextView stv_6;
+    @BindView(R.id.stv_5)
+    private SuperTextView stv_5;
     @BindView(R.id.stv_7)
     private SuperTextView stv_7;
     @BindView(R.id.stv_8)
@@ -161,7 +161,7 @@ public class SettingFragment extends BaseFragment<MainActivity> {
                 showInputDialog();
             }
         });
-        stv_6.setOnClickListener(new View.OnClickListener() {
+        stv_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showEveryDayWordsEditDialog();
@@ -340,7 +340,8 @@ public class SettingFragment extends BaseFragment<MainActivity> {
         FullScreenDialog.show(me, R.layout.dialog_everydaywords_view, new FullScreenDialog.OnBindView() {
             @Override
             public void onBind(final FullScreenDialog dialog, View rootView) {
-
+                ListView listView=rootView.findViewById(R.id.lv_words);
+                listView.setAdapter(new WordsAdapter(me));
             }
         }).setOkButton("关闭", new OnDialogButtonClickListener() {
             @Override

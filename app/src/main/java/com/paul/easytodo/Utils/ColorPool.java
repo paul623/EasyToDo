@@ -13,4 +13,10 @@ public class ColorPool {
         Random random=new Random();
         return Color.parseColor(colors[random.nextInt(colors.length)]);
     }
+    private static String[] card_colors={"#0099FF","#99CC66","#CCCCFF","#FF9966","#FF6666","#FFCCCC"};
+    public static int getRandomCardColor(int seed){
+        Random random=new Random((seed*1171325415+1051786470));
+        return Color.parseColor(card_colors[random.nextInt(card_colors.length)]);
+    }
+
 }
