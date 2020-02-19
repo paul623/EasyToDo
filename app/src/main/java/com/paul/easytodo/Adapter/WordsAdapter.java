@@ -16,6 +16,7 @@ import com.paul.easytodo.Utils.ColorPool;
 import com.paul.easytodo.Utils.DateUtil;
 
 import com.paul.easytodo.Utils.WordsUtil;
+import com.paul.easytodo.domain.WordsAllResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
 public class WordsAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater;
-    List<WordsBean> list;
+    List<WordsAllResult.DataBeanBean> list;
     int []imagearrays=new int[]{R.drawable.img_1,
     R.drawable.img_2,
     R.drawable.img_3,
@@ -34,18 +35,11 @@ public class WordsAdapter extends BaseAdapter {
     R.drawable.img_7,
     R.drawable.img_8};
 
-    public WordsAdapter(Context context) {
+    public WordsAdapter(Context context,List<WordsAllResult.DataBeanBean> dataBeanBeans) {
         this.context = context;
         this.context=context;
         layoutInflater=LayoutInflater.from(context);
-        String []words= WordsUtil.comeon_words;
-        list=new ArrayList<>();
-        for(String i:words){
-            WordsBean wordsBean=new WordsBean();
-            wordsBean.setAdd_date(DateUtil.getCurDate());
-            wordsBean.setWords(i);
-            list.add(wordsBean);
-        }
+        list=dataBeanBeans;
     }
 
     @Override
@@ -69,7 +63,7 @@ public class WordsAdapter extends BaseAdapter {
         TextView textView=view.findViewById(R.id.tv_words);
         CardView cardView=view.findViewById(R.id.cv_words);
         cardView.setCardBackgroundColor(ColorPool.getRandomCardColor(position));
-        textView.setText(list.get(position).getWords());
+        textView.setText(list.get(position).getContent());
         return view;
     }
 }

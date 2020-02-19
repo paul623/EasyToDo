@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_words"
-        android:foreground = "?attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         app:cardCornerRadius="5dp"
         android:padding="10dp"

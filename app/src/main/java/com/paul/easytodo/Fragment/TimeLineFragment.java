@@ -1,11 +1,13 @@
 package com.paul.easytodo.Fragment;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.InputType;
@@ -25,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.kongzue.baseframework.BaseFragment;
@@ -45,23 +48,40 @@ import com.paul.easytodo.Manager.EveryDayCheckManager;
 import com.paul.easytodo.Manager.GoalHelper;
 import com.paul.easytodo.Manager.SettingManager;
 import com.paul.easytodo.R;
+import com.paul.easytodo.RequestAPI.EatWhatAPI;
+import com.paul.easytodo.RequestAPI.WordsAPI;
 import com.paul.easytodo.Utils.DateUtil;
+import com.paul.easytodo.Utils.MessageFactory;
+import com.paul.easytodo.Utils.MySharedPerference;
 import com.paul.easytodo.Utils.OpenAppHelper;
+import com.paul.easytodo.Utils.RetrofitFactory;
 import com.paul.easytodo.Utils.WordsUtil;
+import com.paul.easytodo.domain.EatWhatResult;
+import com.paul.easytodo.domain.WordsResult;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 
 import org.litepal.LitePal;
+import org.w3c.dom.Text;
 
+import java.util.Date;
 import java.util.List;
 
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @Layout(R.layout.fragment_timeline)
 public class TimeLineFragment extends BaseFragment<MainActivity> {
     @BindView(R.id.tv_comeon_words)
     private TextView tv_comeon_words;
+    @BindView(R.id.tv_comeon_author)
+    private TextView tv_comeon_author;
     @BindView(R.id.tv_head_date)
     private TextView tv_head_date;
     @BindView(R.id.tv_head_wakeup)
@@ -98,12 +118,14 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
     private LinearLayout ly_timeline;
     @BindView(R.id.profile_image)
     private CircleImageView profile_image;
-
+    @BindView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
     private EveryDayCheck everyDayCheck;
     private List<Goal> goalList;
     private ToDoListAdapter toDoListAdapter;
     private DataChangedListener listener;
     private SettingManager settingManager;
+    MySharedPerference mySharedPerference;
     private Handler handler=new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -136,21 +158,23 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
     public void initDatas() {
         LitePal.initialize(me);
         settingManager=new SettingManager(me);
+        mySharedPerference=new MySharedPerference(me,"TimeLineFragment");
         goalList= GoalHelper.getNeedToDoGoals(me);
         everyDayCheck= EveryDayCheckManager.getEveryDayCheck(me);
-        tv_comeon_words.setText(WordsUtil.getWordsByRandom(me));
         toDoListAdapter=new ToDoListAdapter(me,handler);
         ly_timeline.setBackground(settingManager.getHomepage_bg_img());
         profile_image.setImageBitmap(settingManager.getHomepage_headicon_img());
         initHeadView();
         initColorCardView();
         initListView();
+        autoRefreash();
 
     }
 
     @Override
     public void setEvents() {
         initImageView();
+        setRefreshLayout();
     }
 
     private void initHeadView(){
@@ -339,5 +363,100 @@ public class TimeLineFragment extends BaseFragment<MainActivity> {
             view.requestApplyInsets();
         }
         super.onHiddenChanged(hidden);
+    }
+    private void getWordsFromServer(){
+
+            WordsAPI api= RetrofitFactory.getRetrofit().create(WordsAPI.class);
+            Call<WordsResult> call=api.getTodayWords();
+            call.enqueue(new Callback<WordsResult>() {
+                @Override
+                public void onResponse(Call<WordsResult> call, Response<WordsResult> response) {
+                    WordsResult wordsResult=response.body();
+                   if(wordsResult!=null){
+                       setWords(wordsResult);
+                       mySharedPerference.putObject("words",wordsResult);
+                       refreshLayout.finishRefresh(true);
+                   }
+
+                }
+
+                @Override
+                public void onFailure(Call<WordsResult> call, Throwable t) {
+                    tv_comeon_words.setText("风会记得一朵花的香");
+                    tv_comeon_author.setText("paul");
+                    refreshLayout.finishRefresh(false);
+                }
+            });
+
+
+    }
+    private void getEatWhatFromServer(){
+
+            EatWhatAPI api=RetrofitFactory.getRetrofit().create(EatWhatAPI.class);
+            Call<EatWhatResult> call=api.getEatWhat();
+            call.enqueue(new Callback<EatWhatResult>() {
+                @Override
+                public void onResponse(Call<EatWhatResult> call, Response<EatWhatResult> response) {
+                    EatWhatResult eatWhatResult=response.body();
+                    if(eatWhatResult!=null){
+                        setFood(eatWhatResult);
+                        mySharedPerference.putObject("food",eatWhatResult);
+                        refreshLayout.finishRefresh(true);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<EatWhatResult> call, Throwable t) {
+                    refreshLayout.finishRefresh(false);
+                }
+            });
+
+    }
+
+    private void setFood(EatWhatResult eatWhatResult){
+        if(eatWhatResult.getCode()==1) {
+            int[] foodname = {R.id.tv_morning_food, R.id.tv_noon_food, R.id.tv_night_food};
+            int[] locname = {R.id.tv_morning_loc, R.id.tv_noon_loc, R.id.tv_night_loc};
+            TextView food, loc;
+            for (int i = 0; i < foodname.length; i++) {
+                food = findViewById(foodname[i]);
+                loc = findViewById(locname[i]);
+                food.setText(eatWhatResult.getDataBean().get(i).getFood());
+                loc.setText(eatWhatResult.getDataBean().get(i).getLoc());
+            }
+            DateUtil.putRefreshTAG(me,"food_date");
+        }
+    }
+    private void setWords(WordsResult wordsResult){
+        tv_comeon_words.setText(wordsResult.getContent());
+        tv_comeon_author.setText(wordsResult.getAuthor());
+        DateUtil.putRefreshTAG(me,"words_date");
+    }
+    private void setRefreshLayout(){
+        refreshLayout.setRefreshHeader(new ClassicsHeader(me));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                DateUtil.clearRefreshTAG(me,"food_date","words_date");
+                getWordsFromServer();
+                getEatWhatFromServer();
+            }
+        });
+    }
+    private void autoRefreash(){
+        if(DateUtil.canRefresh(me,"food_date")){
+            refreshLayout.autoRefresh();
+            getEatWhatFromServer();
+        }else {
+            EatWhatResult result=mySharedPerference.getObject("food",EatWhatResult.class);
+            setFood(result);
+        }
+        if(DateUtil.canRefresh(me,"words_date")){
+            getWordsFromServer();
+        }else {
+            WordsResult result=mySharedPerference.getObject("words",WordsResult.class);
+            setWords(result);
+        }
     }
 }

@@ -1,8 +1,13 @@
 package com.paul.easytodo.Utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DateUtil {
     public static String getCurDate(){
@@ -91,5 +96,30 @@ public class DateUtil {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date();
         return df.format(date);
+    }
+    public static Boolean canRefresh(Context context,String key){
+        String curDate=getCurDate();
+        SharedPreferences sp=context.getSharedPreferences("DateDataBase",Context.MODE_PRIVATE);
+        String locDate=sp.getString(key,"");
+
+        if(!curDate.equals(locDate)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    public static void putRefreshTAG(Context context,String key){
+        String curDate=getCurDate();
+        SharedPreferences sp=context.getSharedPreferences("DateDataBase",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString(key,curDate);
+        editor.apply();
+    }
+    public static void clearRefreshTAG(Context context,String key,String key02){
+        SharedPreferences sp=context.getSharedPreferences("DateDataBase",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString(key,"");
+        editor.putString(key02,"");
+        editor.apply();
     }
 }

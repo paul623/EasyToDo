@@ -16,8 +16,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.CalendarContract;
 import android.provider.MediaStore;
 import android.provider.UserDictionary;
+
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -54,8 +56,11 @@ import com.paul.easytodo.MainActivity;
 import com.paul.easytodo.Manager.SettingManager;
 import com.paul.easytodo.Manager.SyncManager;
 import com.paul.easytodo.R;
+import com.paul.easytodo.RequestAPI.WordsAPI;
 import com.paul.easytodo.Utils.DateUtil;
 import com.paul.easytodo.Utils.ImageUtil;
+import com.paul.easytodo.Utils.RetrofitFactory;
+import com.paul.easytodo.domain.WordsAllResult;
 
 
 import java.io.File;
@@ -65,6 +70,9 @@ import java.io.IOException;
 
 
 import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @DarkStatusBarTheme(true)
 @Layout(R.layout.fragment_setting)
@@ -341,7 +349,7 @@ public class SettingFragment extends BaseFragment<MainActivity> {
             @Override
             public void onBind(final FullScreenDialog dialog, View rootView) {
                 ListView listView=rootView.findViewById(R.id.lv_words);
-                listView.setAdapter(new WordsAdapter(me));
+                getAllWords(listView);
             }
         }).setOkButton("关闭", new OnDialogButtonClickListener() {
             @Override
@@ -350,4 +358,22 @@ public class SettingFragment extends BaseFragment<MainActivity> {
             }
         }).setTitle("编辑");
     }
+    private void getAllWords(ListView listView){
+        WordsAPI api= RetrofitFactory.getRetrofit().create(WordsAPI.class);
+        Call<WordsAllResult> call=api.getAllWords();
+        call.enqueue(new Callback<WordsAllResult>() {
+            @Override
+            public void onResponse(Call<WordsAllResult> call, Response<WordsAllResult> response) {
+                WordsAllResult wordsAllResult=response.body();
+                listView.setAdapter(new WordsAdapter(me,wordsAllResult.getDataBean()));
+            }
+
+            @Override
+            public void onFailure(Call<WordsAllResult> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 }

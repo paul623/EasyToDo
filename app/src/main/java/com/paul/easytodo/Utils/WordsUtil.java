@@ -2,11 +2,21 @@ package com.paul.easytodo.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Message;
+
 
 import com.paul.easytodo.R;
+import com.paul.easytodo.RequestAPI.WordsAPI;
+import com.paul.easytodo.domain.WordsResult;
 
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Handler;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WordsUtil {
     private static final String[] morning_words={"早上好，快点开启活力满满的新一天吧！","今天也要加油！早安","早上好，要保持一天的好心情哦","早上好，为了美好的未来继续奋斗","别忘记吃早餐哦~"};
@@ -43,9 +53,11 @@ public class WordsUtil {
             return evening_words[random.nextInt(evening_words.length)];
         }
     }
+
     /**
      * 获取励志话语
      * */
+    /*
     public static String getWordsByRandom(Context context){
         String datebasename="WordsData";
         String flag="wordsDate";
@@ -62,5 +74,6 @@ public class WordsUtil {
             editor.apply();
             return content;
         }
-    }
+    }*/
+
 }

@@ -1,12 +1,8 @@
 package com.paul.easytodo.Fragment;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,14 +16,10 @@ import com.kongzue.baseframework.interfaces.DarkStatusBarTheme;
 import com.kongzue.baseframework.interfaces.Layout;
 import com.paul.easytodo.MainActivity;
 import com.paul.easytodo.R;
-import com.paul.easytodo.Utils.StatusBarUtils;
 import com.paul.easytodo.Utils.TimeCounter;
 import com.paul.easytodo.Widget.ClockProgressBar;
 import com.paul.easytodo.Widget.RippleWrapper;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.beans.PropertyChangeEvent;
 import java.util.Random;
 
 @DarkStatusBarTheme(true)

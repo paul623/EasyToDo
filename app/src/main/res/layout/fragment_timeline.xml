@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ly_timeline"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ly_timeline"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -27,6 +27,7 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+
             <TextView
                 android:id="@+id/tv_comeon_words"
                 android:layout_width="match_parent"
@@ -35,476 +36,534 @@
                 android:gravity="right"
                 android:text="早上好，继续加油吧"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_comeon_author"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_weight="3"
+                android:gravity="right"
+                android:text="Paul"
+                android:textColor="@color/white"
+                android:textSize="10sp"
                 android:textStyle="italic" />
+
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp">
+        android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="0.9"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/tv_head_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="2020.1.29\n星期五"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="早起打卡" />
-
-                        <TextView
-                            android:id="@+id/tv_head_wakeup"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="7:30" />
-
-                        <Button
-                            android:id="@+id/btn_head_wakeup"
-                            android:background="@drawable/btn_background_white"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="2dp"
-                            android:layout_weight="1"
-                            android:text="check" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="睡觉打卡" />
-
-                        <TextView
-                            android:id="@+id/tv_head_sleep"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="23:00" />
-
-                        <Button
-                            android:id="@+id/btn_head_sleep"
-                            android:background="@drawable/btn_background_white"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="2dp"
-                            android:layout_weight="1"
-                            android:text="check" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_todo"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:alpha="0.95"
-            app:cardBackgroundColor="#FEFDCA"
-            app:cardCornerRadius="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="今日待办" />
-
-                <TextView
-                    android:id="@+id/tv_todo_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="7"
-                    android:textColor="#29C6CD"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="项" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_focus_time"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:alpha="0.95"
-            app:cardBackgroundColor="#E0F9B5"
-            app:cardCornerRadius="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="今日专注" />
-
-                <TextView
-                    android:id="@+id/tv_focus_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="5/6"
-                    android:textColor="#EA5455"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="h" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:alpha="0.95"
-            app:cardBackgroundColor="#A5DEE5"
-            app:cardCornerRadius="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="距考研" />
-
-                <TextView
-                    android:id="@+id/tv_timecounter_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="330"
-                    android:textColor="#F07B3F"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="天" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ly_todolist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:alpha="0.9"
-            app:cardCornerRadius="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ListView
-                    android:transcriptMode="alwaysScroll"
-                    android:divider="@null"
-                    android:fadingEdge="none"
-                    android:dividerHeight="0dp"
-                    android:id="@+id/lv_todo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="0.9"
-            app:cardCornerRadius="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
-                <LinearLayout
-                    android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp">
+
                     <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/food_morning"/>
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
                         <TextView
+                            android:id="@+id/tv_head_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="粥，掉渣饼"
+                            android:text="2020.1.29\n星期五"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="早起打卡" />
+
+                                <TextView
+                                    android:id="@+id/tv_head_wakeup"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="7:30" />
+
+                                <Button
+                                    android:id="@+id/btn_head_wakeup"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="2dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/btn_background_white"
+                                    android:text="check" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="2dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="睡觉打卡" />
+
+                                <TextView
+                                    android:id="@+id/tv_head_sleep"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="23:00" />
+
+                                <Button
+                                    android:id="@+id/btn_head_sleep"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="2dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/btn_background_white"
+                                    android:text="check" />
+                            </LinearLayout>
+                        </LinearLayout>
+
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/food_loc"/>
-                        <TextView
-                            android:gravity="center"
-                            android:text="六食堂一楼"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/food_noon"/>
-                        <TextView
-                            android:gravity="center"
-                            android:text="瓦香鸡"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/food_loc"/>
-                        <TextView
-                            android:gravity="center"
-                            android:text="五食堂二楼"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/food_evening"/>
-                        <TextView
-                            android:gravity="center"
-                            android:text="兰州拉面"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/food_loc"/>
-                        <TextView
-                            android:gravity="center"
-                            android:text="五食堂一楼"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="2dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.cardview.widget.CardView
-            android:alpha="0.9"
-            app:cardCornerRadius="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
             <LinearLayout
-                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/iv_forest"
-                    android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_todo"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:src="@drawable/app_forest"/>
-                <ImageView
-                    android:id="@+id/iv_words"
+                    android:layout_height="80dp"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
+                    android:alpha="0.95"
+                    app:cardBackgroundColor="#FEFDCA"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="今日待办" />
+
+                        <TextView
+                            android:id="@+id/tv_todo_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="7"
+                            android:textColor="#29C6CD"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="项" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_focus_time"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:src="@drawable/app_words"/>
-                <ImageView
-                    android:id="@+id/iv_diary"
+                    android:layout_height="80dp"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
+                    android:alpha="0.95"
+                    app:cardBackgroundColor="#E0F9B5"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="今日专注" />
+
+                        <TextView
+                            android:id="@+id/tv_focus_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="5/6"
+                            android:textColor="#EA5455"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="h" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:src="@drawable/app_diary"/>
-                <ImageView
-                    android:id="@+id/iv_love"
+                    android:layout_height="80dp"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:src="@drawable/app_love"/>
+                    android:alpha="0.95"
+                    app:cardBackgroundColor="#A5DEE5"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="距考研" />
+
+                        <TextView
+                            android:id="@+id/tv_timecounter_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="330"
+                            android:textColor="#F07B3F"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="天" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ly_todolist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:alpha="0.9"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <ListView
+                            android:id="@+id/lv_todo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@null"
+                            android:dividerHeight="0dp"
+                            android:fadingEdge="none"
+                            android:transcriptMode="alwaysScroll" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/food_morning" />
+
+                                <TextView
+                                    android:id="@+id/tv_morning_food"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="粥，掉渣饼" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/food_loc" />
+
+                                <TextView
+                                    android:id="@+id/tv_morning_loc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="六食堂一楼" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/food_noon" />
+
+                                <TextView
+                                    android:id="@+id/tv_noon_food"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="瓦香鸡" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/food_loc" />
+
+                                <TextView
+                                    android:id="@+id/tv_noon_loc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="五食堂二楼" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/food_evening" />
+
+                                <TextView
+                                    android:id="@+id/tv_night_food"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="兰州拉面" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/food_loc" />
+
+                                <TextView
+                                    android:id="@+id/tv_night_loc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="五食堂一楼" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/iv_forest"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/app_forest" />
+
+                        <ImageView
+                            android:id="@+id/iv_words"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/app_words" />
+
+                        <ImageView
+                            android:id="@+id/iv_diary"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/app_diary" />
+
+                        <ImageView
+                            android:id="@+id/iv_love"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/app_love" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </LinearLayout>
